@@ -1,4 +1,4 @@
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoiYWRtaW5AbG9jYWxob3N0Iiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUyMTIxNDIzLCJleHAiOjE3NTIxMjg2MjN9.9bqGBx9P29H2ZofubCtwflBB_wjeTyYmH_XaxXzS0vE
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoiYWRtaW5AbG9jYWxob3N0Iiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUyMTcyODgxLCJleHAiOjE3NTIxODAwODF9.WWQxagnYFpFfTCFBrWYvnJZtJjMjU-VX20UT1_RCKNw
 @tokenUser=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImVtYWlsIjoidGVzdGVlMkBsb2NhbGhvc3QiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MjEyMTUzNiwiZXhwIjoxNzUyMTI4NzM2fQ.EatsAa3hKPgk_CEeODoNVHXNS5FfAgabNcdqyDNkqBA
 
 GET http://localhost:3000/users
@@ -42,9 +42,11 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/games
+GET http://localhost:3000/games/gpt
+?msg=retrive all games where rated > 5
 Content-Type: application/json
-Authorization: {{tokenUser}}
+Authorization: {{token}}
+
 
 ###
 GET http://localhost:3000/games/3

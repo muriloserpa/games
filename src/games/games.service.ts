@@ -64,4 +64,8 @@ export class GamesService {
 
     return this.prismaService.game.delete({ where: { id: id } });
   }
+
+  async gpt(prompt: string) {
+    return this.prismaService.prismaExt.$queryGPT(prompt);
+  }
 }
