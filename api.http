@@ -1,22 +1,24 @@
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoiYWRtaW5AbG9jYWxob3N0IiwiaWF0IjoxNzUyMTE1NjIwLCJleHAiOjE3NTIxMjI4MjB9.sn5gBxWTcM9IxjMPbmPWsUytsN2IIynoYi3etaNYTgk
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoiYWRtaW5AbG9jYWxob3N0Iiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUyMTIxNDIzLCJleHAiOjE3NTIxMjg2MjN9.9bqGBx9P29H2ZofubCtwflBB_wjeTyYmH_XaxXzS0vE
+@tokenUser=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImVtYWlsIjoidGVzdGVlMkBsb2NhbGhvc3QiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MjEyMTUzNiwiZXhwIjoxNzUyMTI4NzM2fQ.EatsAa3hKPgk_CEeODoNVHXNS5FfAgabNcdqyDNkqBA
 
 GET http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoiYWRtaW5AbG9jYWxob3N0IiwiaWF0IjoxNzUyMTE1NjIwLCJleHAiOjE3NTIxMjI4MjB9.sn5gBxWTcM9IxjMPbmPWsUytsN2IIynoYi3etaNYTgk
+Authorization: {{tokenUser}} 
 
 ###
 
 GET http://localhost:3000/users/1
+Authorization: {{tokenUser}} 
 
 ###
 
 POST http://localhost:3000/users
 Content-Type: application/json
+Authorization: {{tokenUser}}
 
 {
-    "name": "Admin",
-    "email": "admin@localhost",
-    "password": "admin",
-    "role": "ADMIN"
+    "name": "teste3",
+    "email": "testee3@localhost",
+    "password": "teste"
 }
 
 ###
@@ -27,6 +29,16 @@ Content-Type: application/json
 {
     "email": "admin@localhost",
     "password": "admin"
+}
+
+###
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "testee2@localhost",
+    "password": "teste"
 }
 
 ###

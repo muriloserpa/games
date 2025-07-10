@@ -1,13 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { CaslAbilityService } from 'src/casl/casl-ability/casl-ability.service';
+import { accessibleBy } from '@casl/prisma';
 
 @Injectable()
 export class UsersService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(
+    private prismaService: PrismaService,
+    private caslService: CaslAbilityService,
+  ) {}
   create(createUserDto: CreateUserDto) {
+    const ability = this.caslService.ability;
+    if (!ability.can('create', 'User'))
+      throw new UnauthorizedException('you dont have permission');
+
     return this.prismaService.user.create({
       data: {
         ...createUserDto,
@@ -17,14 +30,36 @@ export class UsersService {
   }
 
   findAll() {
-    return this.prismaService.user.findMany();
+    const ability = this.caslService.ability;
+
+    return this.prismaService.user.findMany({
+      where: {
+        AND: [accessibleBy(ability, 'read').User],
+      },
+    });
   }
 
-  findOne(id: number) {
-    return this.prismaService.user.findUnique({ where: { id: id } });
+  async findOne(id: number) {
+    const ability = this.caslService.ability;
+    const user = await this.prismaService.user.findUnique({
+      where: { id: id, AND: [accessibleBy(ability, 'read').User] },
+    });
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
+    return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const ability = this.caslService.ability;
+
+    const user = await this.prismaService.user.findUnique({
+      where: { id: id, AND: [accessibleBy(ability, 'update').User] },
+    });
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
+
     return this.prismaService.user.update({
       where: { id: id },
       data: updateUserDto,
@@ -32,6 +67,7 @@ export class UsersService {
   }
 
   remove(id: number) {
+    const ability = this.caslService.ability;
     return this.prismaService.user.delete({ where: { id: id } });
   }
 }
