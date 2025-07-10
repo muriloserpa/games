@@ -1,3 +1,5 @@
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoiYWRtaW5AbG9jYWxob3N0IiwiaWF0IjoxNzUyMTE1NjIwLCJleHAiOjE3NTIxMjI4MjB9.sn5gBxWTcM9IxjMPbmPWsUytsN2IIynoYi3etaNYTgk
+
 GET http://localhost:3000/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoiYWRtaW5AbG9jYWxob3N0IiwiaWF0IjoxNzUyMTE1NjIwLCJleHAiOjE3NTIxMjI4MjB9.sn5gBxWTcM9IxjMPbmPWsUytsN2IIynoYi3etaNYTgk
 
@@ -25,4 +27,22 @@ Content-Type: application/json
 {
     "email": "admin@localhost",
     "password": "admin"
+}
+
+###
+GET http://localhost:3000/games
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+POST http://localhost:3000/games
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "name": "Game 1",
+    "description": "Game 1 description",
+    "rate": 10,
+    "status": "PLAYING"
 }

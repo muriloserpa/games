@@ -26,5 +26,25 @@ model User {
   role      Role   @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  games     Game[]
 
+}
+
+enum Status {
+  FINISHED
+  PLAYING
+  DROPPED
+}
+
+model Game {
+  id        Int    @id @default(autoincrement())
+  name      String
+  description String?
+  image     String?
+  rate      Float?
+  status    Status @default(PLAYING)
+  user_id   Int
+  user      User   @relation(fields: [user_id], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
