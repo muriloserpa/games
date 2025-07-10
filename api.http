@@ -44,17 +44,22 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/games
 Content-Type: application/json
-Authorization: {{token}}
+Authorization: {{tokenUser}}
+
+###
+GET http://localhost:3000/games/3
+Content-Type: application/json
+Authorization: {{tokenUser}}
 
 ###
 
 POST http://localhost:3000/games
 Content-Type: application/json
-Authorization: {{token}}
+Authorization: {{tokenUser}}
 
 {
-    "name": "Game 1",
-    "description": "Game 1 description",
+    "name": "Game 3",
+    "description": "Game 3 description",
     "rate": 10,
     "status": "PLAYING"
 }
